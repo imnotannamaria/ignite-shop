@@ -1,6 +1,7 @@
 import axios from "axios"
 import { GetStaticPaths, GetStaticProps } from "next"
 import Image from "next/future/image"
+import Head from "next/head"
 import Router, { useRouter } from "next/router"
 import { useState } from "react"
 import Stripe from "stripe"
@@ -18,9 +19,15 @@ interface ProductProps {
   }
 }
 
+interface Language {
+  type: 'pt' | 'en' | 'es';
+}
+
 export default function Product({ product } : ProductProps) {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
   //const router = useRouter();
+
+  const [language, setLanguage] = useState<Language>()
 
   async function handleBuyProduct() {
     try {
@@ -52,26 +59,31 @@ export default function Product({ product } : ProductProps) {
   }
 
   return (
-    <ProductContainer>
-      <ImageContainer>
-        <Image src={product.imageUrl} width={520} height={400} alt=""/>
-      </ImageContainer>
+    <>
+      <Head>
+        <title>{product.name} | Ignite Shop</title>
+      </Head>
+      <ProductContainer>
+        <ImageContainer>
+          <Image src={product.imageUrl} width={520} height={400} alt=""/>
+        </ImageContainer>
 
-      <ProductDetails>
-        <h1>{product.name}</h1>
+        <ProductDetails>
+          <h1>{product.name}</h1>
 
-        <span>{product.price}</span>
+          <span>{product.price}</span>
 
-        <p>{product.description}.</p>
+          <p>{product.description}.</p>
 
-        <button
-          disabled={isCreatingCheckoutSession}
-          onClick={handleBuyProduct
-        }>
-          Comprar agora
-        </button>
-      </ProductDetails>
-    </ProductContainer>
+          <button
+            disabled={isCreatingCheckoutSession}
+            onClick={handleBuyProduct
+          }>
+            Comprar agora
+          </button>
+        </ProductDetails>
+      </ProductContainer>
+    </>
   )
 }
 
