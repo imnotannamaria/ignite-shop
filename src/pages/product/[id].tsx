@@ -1,12 +1,12 @@
-import axios from "axios"
-import { GetStaticPaths, GetStaticProps } from "next"
-import Image from "next/future/image"
-import Head from "next/head"
-import Router, { useRouter } from "next/router"
-import { useState } from "react"
-import Stripe from "stripe"
-import { stripe } from "../../lib/sripe"
-import { ImageContainer, ProductContainer, ProductDetails } from "../../styles/pages/product"
+import axios from 'axios'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import Image from 'next/future/image'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import Stripe from 'stripe'
+import { stripe } from '../../lib/sripe'
+import { ImageContainer, ProductContainer, ProductDetails } from '../../styles/pages/product'
 
 interface ProductProps {
   product: {
@@ -19,15 +19,9 @@ interface ProductProps {
   }
 }
 
-interface Language {
-  type: 'pt' | 'en' | 'es';
-}
-
 export default function Product({ product } : ProductProps) {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
   //const router = useRouter();
-
-  const [language, setLanguage] = useState<Language>()
 
   async function handleBuyProduct() {
     try {
@@ -65,7 +59,7 @@ export default function Product({ product } : ProductProps) {
       </Head>
       <ProductContainer>
         <ImageContainer>
-          <Image src={product.imageUrl} width={520} height={400} alt=""/>
+          <Image src={product.imageUrl} width={520} height={400} alt=''/>
         </ImageContainer>
 
         <ProductDetails>
